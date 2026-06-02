@@ -93,34 +93,103 @@
                 <!-- Project 1 (Published / Has Preprint) -->
                 <div class="project-item">
                     <div class="project-header">
-                        <h3 class="project-title">Zero-Shot Human-Robot Coordination in Multi-Agent Systems</h3>
-                        <p class="project-authors">Akshunn Trivedi, Malika Meghjani</p>
+                        <h3 class="project-title">Backup-Based Safety Filters: A Comparative Review of Backup CBF,
+                            Model Predictive Shielding, and gatekeeper</h3>
+                        <p class="project-authors">Taekyung Kim, Aswin Menon, Akshunn Trivedi, Dimitra Panagou</p>
                     </div>
                     <p class="project-description">
-                        Developed decentralized policy architectures for robots to coordinate with unseen human partners
-                        without prior calibration. Deployed and evaluated zero-shot cooperation algorithms on physical
-                        ground vehicles in multi-agent environments.
+                        This project reviews three backup-based safety filters -- Backup Control Barrier Functions
+                        (Backup CBF), Model Predictive Shielding (MPS),
+                        and gatekeeper. The work unifies their shared backup safety method and then compares them
+                        through their filter-inactive sets, i.e., the states where the nominal policy is left unchanged.
+                        In particular, we show that MPS is a special case of gatekeeper, and we further relate
+                        gatekeeper to the interior of the Backup CBF inactive set within the implicit safe set.
+                        The paper is intended as a compact tutorial and review that clarifies the theoretical
+                        connections and differences among these methods.
                     </p>
                     <div class="project-links">
-                        <a href="https://arxiv.org/abs/example" target="_blank">Preprint</a> ·
-                        <a href="https://github.com/triakshunn/example-project" target="_blank">Code</a>
+                        <a href="https://www.taekyung.me/backup-safety-filters" target="_blank"> Project Page </a>
+                        <a href="https://arxiv.org/pdf/2604.02401" target="_blank">Preprint</a>
+                        <a href="https://github.com/tkkim-robot/safe_control/tree/main/shielding"
+                            target="_blank">Code</a>
                     </div>
                 </div>
 
-                <!-- Project 2 (Unpublished / Software / In-Progress) -->
+                <!-- Project 1 (Published / Has Preprint) -->
                 <div class="project-item">
                     <div class="project-header">
-                        <h3 class="project-title">Bio-Inspired Hebbian Learning for Continuous Robot Control</h3>
-                        <p class="project-authors">Akshunn Trivedi, Manas Gupta</p>
+                        <h3 class="project-title">Efficient Generation of Diverse
+                            Cooperative Agents with World Models</h3>
+                        <p class="project-authors">Loo Yi, Akshunn Trivedi, Malika Meghjani</p>
                     </div>
                     <p class="project-description">
-                        Investigated sample-efficient control architectures utilizing local Hebbian plasticity rules.
-                        Developed simulated agents capable of fast adaptation in continuous control environments,
-                        reducing dependency on global reward backpropagation.
+                        The biggest issue in training for Zero-Shot Coordination Agent (ZSC) is generation of partner
+                        agents that are diverse enough
+                        for collaboration tasks. However, these methods can be extremely sample inefficient, and
+                        computationally expensive.In this work, we propose that simulated
+                        trajectories from the dynamics model of an environment can drastically speed up the training
+                        process for Zero-Shot Meta (XPM) methods.
+                        We introduce XPM-WM, a framework for generating simulated trajectories for XPM via a learned
+                        World Model (WM).
+                        We show XPM with simulated trajectories removes the need to sample multiple trajectories and
+                        show our proposed method can effectively generate
+                        partners with diverse conventions that match the performance of previous methods
                     </p>
                     <div class="project-links">
-                        <!-- Note: No paper link here as it is not published yet -->
-                        <a href="https://github.com/triakshunn/hebbian-control" target="_blank">Code</a>
+                        <a href="https://arxiv.org/pdf/2506.07450" target="_blank">Preprint</a>
+                        Code: Coming soon!
+                    </div>
+                </div>
+
+
+                <!-- Project 1 (Published / Has Preprint) -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3 class="project-title">ActiveLoopSplat: Active Indoor Exploration with Loop-Closing
+                            Gaussian SLAM</h3>
+                        <p class="project-authors">Nandan Natesan, Kornvik Tanpipat, Akshunn Trivedi, Saumit Vedula</p>
+                    </div>
+                    <p class="project-description">
+                        LoopSplat provides dense 3D Gaussian Splatting
+                        (3DGS) SLAM with loop closure but operates only offline
+                        over pre-recorded sequences. ActiveSplat enables live active
+                        exploration but lacks loop closure, leaving it vulnerable to
+                        accumulated camera drift. In this work, we present ActiveLoopSplat,
+                        a live system running entirely within the Habitat simulator that unifies
+                        these capabilities to allow an autonomous agent
+                        to actively explore indoor environments while maintaining a
+                        globally consistent map
+                    </p>
+                    <div class="project-links">
+                        <a href="assets/activeloopsplat.pdf" target="_blank">Report</a>
+                        <a href="https://github.com/ROB-530-9-Gaussian-Exploration-Mapping/ActiveLoopSplat"
+                            target="_blank">Code</a>
+                    </div>
+                </div>
+
+
+                <!-- Project 1 (Published / Has Preprint) -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3 class="project-title">A Hitchhiker’s Guide To Robot Navigation: People-Powered Path Planning
+                        </h3>
+                        <p class="project-authors">Anandi Arora, Sebastian Helgeson, Akshunn Trivedi</p>
+                    </div>
+                    <p class="project-description">
+                        One of the biggest challenges for widespread use
+                        of robots is difficulty in navigating unstructured and dynamic environments such as crowds.
+                        Interestingly, humans are expert
+                        agents in this setting, being able to effortlessly navigate through
+                        highly crowded and unstructured environments regularly. Our
+                        work aims to integrate the Leader-Follower algorithm proposed
+                        by Liao et. al. into the Social Force Model (SFM) based crowd
+                        simulator developed in our past assignments to produce a system
+                        with the pedestrian planning from SFM but with added robot
+                        navigation capabilities from Leader-Follower
+                    </p>
+                    <div class="project-links">
+                        <a href="assets/hgrn.pdf" target="_blank"> Technical Report</a>
+                        <a href="https://github.com/triakshunn/People-Powered-Path-Planning" target="_blank">Code</a>
                     </div>
                 </div>
 
