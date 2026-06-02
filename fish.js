@@ -30,6 +30,25 @@ window.addEventListener('mouseleave', () => {
     mouseY = -999;
 });
 
+// Track finger touches on mobile screens
+window.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY;
+    }
+});
+window.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        mouseX = e.touches[0].clientX;
+        mouseY = e.touches[0].clientY;
+    }
+});
+// Reset tracking when finger is lifted
+window.addEventListener('touchend', () => {
+    mouseX = -999;
+    mouseY = -999;
+});
+
 /* ==========================================================================
    Fish School Configuration
    ========================================================================== */
