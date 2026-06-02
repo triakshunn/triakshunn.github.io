@@ -1,2 +1,3 @@
-# triakshunn.github.io
-Personal Website
+Website link below 
+https://triakshunn.github.io. 
+## This is a personal website of mines made to show my portifolio. 
