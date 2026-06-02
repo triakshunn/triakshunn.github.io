@@ -26,11 +26,14 @@
    Light Mode Override — only bg & text flip, all blues stay identical
    ========================================================================== */
 body.light-mode {
-    --bg: #f4f1eb;              /* Warm cream — easier on eyes than pure white */
+    --bg: #f4f1eb;
+    /* Warm cream — easier on eyes than pure white */
     --card-bg: rgba(255, 252, 245, 0.80);
     --card-border: rgba(91, 196, 245, 0.18);
-    --text-primary: #1a1a2e;   /* Near-black for body text */
-    --text-secondary: #4a7fa8; /* Slightly deeper blue-gray for secondary text */
+    --text-primary: #1a1a2e;
+    /* Near-black for body text */
+    --text-secondary: #4a7fa8;
+    /* Slightly deeper blue-gray for secondary text */
     /* All accent / link blues intentionally unchanged */
 }
 
@@ -57,7 +60,7 @@ body.light-mode #fishCanvas {
     padding: 8px 16px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     user-select: none;
 }
@@ -256,17 +259,24 @@ h2 {
 .bio-content {
     display: flex;
     gap: 48px;
-    align-items: flex-start;
+    align-items: stretch;
+    /* Photo column grows to match text height */
 }
 
 .bio-photo {
     flex-shrink: 0;
     width: 280px;
+    /* height is determined by the text column via align-items: stretch */
 }
 
 .bio-photo img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    /* Fill the full stretched height */
+    object-fit: cover;
+    /* Portrait crop — face stays centered */
+    object-position: center top;
+    /* Bias toward face/top of image */
     border-radius: 12px;
     border: 1px solid var(--card-border);
     box-shadow: 0 0 24px rgba(91, 196, 245, 0.15);
@@ -352,21 +362,24 @@ h2 {
 .project-media {
     flex-shrink: 0;
     width: 240px;
-    height: 160px;
+    height: 200px;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--card-border);
-    background: rgba(91, 196, 245, 0.02);
+    background: rgba(255, 255, 255, 0.04);
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 8px;
 }
 
 .project-media img,
 .project-media video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    /* Never crop — show full figure */
+    border-radius: 4px;
 }
 
 .project-media-placeholder {
