@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Akshunn Trivedi — Robotics Developer</title>
+    <meta name="description"
+        content="Personal website of Akshunn Trivedi, MS Robotics student at University of Michigan. Research in robust and generalizable robot control">
+    <meta name="author" content="Akshunn Trivedi">
+    <link rel="canonical" href="https://triakshunn.github.io/">
+    <meta property="og:title" content="Akshunn Trivedi — Robotics Developer">
+    <meta property="og:description" content="MS Robotics, University of Michigan.">
+    <meta property="og:url" content="https://triakshunn.github.io/">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts: Gentium Book Plus (Serif) & Inter (Sans-Serif fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome for social and contact icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Interactive Fish Canvas Background -->
+    <canvas id="fishCanvas"></canvas>
+
+    <!-- Main Content Container -->
+    <div class="container">
+
+        <!-- Header (Name, contact info, social links) -->
+        <header id="header-section">
+            <h1>Akshunn Trivedi</h1>
+            <p class="header-email">
+                <a href="mailto:akshunn@umich.edu">akshunn@umich.edu</a>
+            </p>
+            <div class="header-links">
+                <a href="#" target="_blank"> CV
+                </a>
+                <a href="#" target="_blank"> Scholar
+                </a>
+                <a href="https://github.com/triakshunn" target="_blank"> GitHub
+                </a>
+                <a href="#" target="_blank"> LinkedIn
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Body Sections -->
+        <main>
+            <!-- About Me Card -->
+            <section id="about" class="card">
+                <h2>About Me</h2>
+                <div class="bio-content">
+                    <div class="bio-photo">
+                        <!-- Make sure to place your photo at assets/profile.jpg later -->
+                        <img src="assets/profile.jpg" alt="Akshunn Trivedi">
+                    </div>
+                    <div class="bio-text">
+                        <p>
+                            I'm currently a master's student at the University of Michigan's Robotics Institute, where I
+                            am advised by <a href="https://websites.umich.edu/~dpanagou/" target="_blank">Prof. Dimitra
+                                Panagou</a>.
+                            My research interests broadly encompass developing optimal control policies for robots to be
+                            able to safely and generally navigate our world. Previously, I worked as a research
+                            assistant at Singapore University of Technology and Design (SUTD) advised by <a
+                                href="https://www.sutd.edu.sg/profile/malika-meghjani/" target="_blank">Dr.
+                                Malika Meghjani</a>, where
+                            I worked on multi-agent collaboration problems with human in the loop, and deployed these
+                            algorithms on real robots. I have also had the pleasure of working with <a
+                                href="https://sg.linkedin.com/in/manassingapore" target="_blank">Manas Gupta</a> on
+                            designing sample-efficient architectural components for control
+                            tasks using bio-inspired methods like Hebbian Learning.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <!-- Projects Card -->
+            <section id="projects" class="card">
+                <h2>Projects</h2>
+
+                <!-- Project 1 (Published / Has Preprint) -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3 class="project-title">Zero-Shot Human-Robot Coordination in Multi-Agent Systems</h3>
+                        <p class="project-authors">Akshunn Trivedi, Malika Meghjani</p>
+                    </div>
+                    <p class="project-description">
+                        Developed decentralized policy architectures for robots to coordinate with unseen human partners
+                        without prior calibration. Deployed and evaluated zero-shot cooperation algorithms on physical
+                        ground vehicles in multi-agent environments.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://arxiv.org/abs/example" target="_blank">Preprint</a> ·
+                        <a href="https://github.com/triakshunn/example-project" target="_blank">Code</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 (Unpublished / Software / In-Progress) -->
+                <div class="project-item">
+                    <div class="project-header">
+                        <h3 class="project-title">Bio-Inspired Hebbian Learning for Continuous Robot Control</h3>
+                        <p class="project-authors">Akshunn Trivedi, Manas Gupta</p>
+                    </div>
+                    <p class="project-description">
+                        Investigated sample-efficient control architectures utilizing local Hebbian plasticity rules.
+                        Developed simulated agents capable of fast adaptation in continuous control environments,
+                        reducing dependency on global reward backpropagation.
+                    </p>
+                    <div class="project-links">
+                        <!-- Note: No paper link here as it is not published yet -->
+                        <a href="https://github.com/triakshunn/hebbian-control" target="_blank">Code</a>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- Footer (Copyright, contact info) -->
+            <footer id="footer-section">
+                <p>&copy; 2026 Akshunn Trivedi &middot; <a href="mailto:akshunn@umich.edu">akshunn@umich.edu</a></p>
+            </footer>
+
+
+    </div>
+
+    <!-- Interactive Canvas Animation Script -->
+    <script src="fish.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,245 @@
+/* ==========================================================================
+   Design System & Global Variables
+   ========================================================================== */
+:root {
+    /* Color Palette - "Ezyang's Blog" Dark Scheme */
+    --bg: #000000;
+    --card-bg: rgba(15, 20, 30, 0.45);
+    /* Subtle translucent background for cards */
+    --card-border: rgba(91, 196, 245, 0.1);
+    /* Subtle sky-blue boundary */
+    --accent: #86d4f9;
+    /* Luminous sky blue accent */
+    --accent-glow: #9bd6f9;
+    /* Lighter sky blue for highlights */
+    --text-primary: #dcdcdc;
+    /* Soft readable light gray text */
+    --text-secondary: #6da6ce;
+    /* Slate-blueish secondary text */
+    --link: #5bc4f5;
+    /* Primary link color */
+    --link-hover: #a5e3ff;
+    /* Hover link color */
+}
+
+/* ==========================================================================
+   Base Elements
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Gentium Book Plus', 'Gentium Book Basic', Georgia, serif;
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 1.8;
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+}
+
+/* All main content sits above the canvas background */
+body>*:not(canvas) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Link Aesthetics */
+a {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: rgba(84, 158, 255, 0.3);
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+a:hover {
+    color: var(--link-hover);
+    text-decoration-color: var(--link-hover);
+}
+
+/* ==========================================================================
+   Layout System
+   ========================================================================== */
+.container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 24px;
+}
+
+/* Glassmorphism Cards */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Safari support */
+    padding: 40px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    border-color: rgba(84, 158, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(84, 158, 255, 0.05);
+}
+
+/* Typography Headings */
+h1 {
+    font-family: 'Gentium Book Plus', 'Gentium Book Basic', Georgia, serif;
+    font-size: clamp(48px, 7vw, 68px);
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-family: 'Gentium Book Plus', 'Gentium Book Basic', Georgia, serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--accent);
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(84, 158, 255, 0.15);
+    padding-bottom: 8px;
+}
+
+/* ==========================================================================
+   Header Section Styles
+   ========================================================================== */
+#header-section {
+    text-align: center;
+    margin-bottom: 56px;
+    padding-bottom: 20px;
+}
+
+
+.header-email {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.header-email a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.header-email a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+
+.header-links {
+    font-family: 'Gentium Book Plus', 'Gentium Book Basic', Georgia, serif;
+    font-size: 18px;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    /* Add this line for mobile wrapping */
+}
+
+.header-links a {
+    color: var(--text-secondary);
+    /* Softer color by default */
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.header-links a:hover {
+    color: var(--accent);
+    /* Sky blue on hover */
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Bio Section Styles
+   ========================================================================== */
+.bio-content {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.bio-photo {
+    flex-shrink: 0;
+    width: 200px;
+}
+
+.bio-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 0 24px rgba(91, 196, 245, 0.15);
+    display: block;
+}
+
+.bio-text {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 700px) {
+    .bio-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .bio-photo {
+        width: 180px;
+        margin-bottom: 8px;
+    }
+}
+
+/* ==========================================================================
+   Footer Section Styles
+   ========================================================================== */
+#footer-section {
+    text-align: center;
+    margin-top: 48px;
+    padding: 24px 0;
+    font-family: 'Gentium Book Plus', 'Gentium Book Basic', Georgia, serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(91, 196, 245, 0.08);
+}
+
+#footer-section a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+#footer-section a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Background Canvas Setup
+   ========================================================================== */
+#fishCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    /* Let mouse clicks pass through to the links below */
+}
