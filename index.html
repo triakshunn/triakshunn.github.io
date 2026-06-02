@@ -27,10 +27,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom CSS Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=1.5">
+    <link rel="stylesheet" href="style.css?v=1.8">
 </head>
 
 <body>
+
+    <!-- Theme Toggle Switch (fixed top-right) -->
+    <button id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+        <span class="toggle-icon" id="toggle-icon">☀️</span>
+        <div class="toggle-track">
+            <div class="toggle-thumb"></div>
+        </div>
+    </button>
 
     <!-- Interactive Fish Canvas Background -->
     <canvas id="fishCanvas"></canvas>
@@ -225,6 +233,24 @@
 
     <!-- Interactive Canvas Animation Script -->
     <script src="fish.js"></script>
-</body>
 
+    <!-- Theme Toggle Logic -->
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const icon = document.getElementById('toggle-icon');
+
+        // Apply saved theme on page load
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            icon.textContent = '🌙';
+        }
+
+        toggle.addEventListener('click', () => {
+            const isLight = document.body.classList.toggle('light-mode');
+            icon.textContent = isLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+    </script>
+</body>
 </html>

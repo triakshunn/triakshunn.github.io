@@ -23,6 +23,91 @@
 }
 
 /* ==========================================================================
+   Light Mode Override — only bg & text flip, all blues stay identical
+   ========================================================================== */
+body.light-mode {
+    --bg: #f4f1eb;              /* Warm cream — easier on eyes than pure white */
+    --card-bg: rgba(255, 252, 245, 0.80);
+    --card-border: rgba(91, 196, 245, 0.18);
+    --text-primary: #1a1a2e;   /* Near-black for body text */
+    --text-secondary: #4a7fa8; /* Slightly deeper blue-gray for secondary text */
+    /* All accent / link blues intentionally unchanged */
+}
+
+/* Canvas background tint in light mode */
+body.light-mode #fishCanvas {
+    background: transparent;
+}
+
+/* ==========================================================================
+   Theme Toggle Button
+   ========================================================================== */
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 40px;
+    padding: 8px 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+}
+
+#theme-toggle:hover {
+    border-color: rgba(91, 196, 245, 0.35);
+    box-shadow: 0 4px 20px rgba(91, 196, 245, 0.12);
+}
+
+/* The pill track */
+.toggle-track {
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    background: rgba(91, 196, 245, 0.18);
+    border: 1px solid rgba(91, 196, 245, 0.3);
+    position: relative;
+    transition: background 0.3s ease;
+    flex-shrink: 0;
+}
+
+body.light-mode .toggle-track {
+    background: rgba(91, 196, 245, 0.35);
+}
+
+/* The sliding thumb */
+.toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 1px 6px rgba(91, 196, 245, 0.5);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+body.light-mode .toggle-thumb {
+    transform: translateX(18px);
+}
+
+/* The sun/moon icon label */
+.toggle-icon {
+    font-size: 16px;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+}
+
+/* ==========================================================================
    Base Elements
    ========================================================================== */
 * {
@@ -170,13 +255,13 @@ h2 {
    ========================================================================== */
 .bio-content {
     display: flex;
-    gap: 32px;
+    gap: 48px;
     align-items: flex-start;
 }
 
 .bio-photo {
     flex-shrink: 0;
-    width: 200px;
+    width: 280px;
 }
 
 .bio-photo img {
@@ -204,7 +289,7 @@ h2 {
     }
 
     .bio-photo {
-        width: 180px;
+        width: 240px;
         margin-bottom: 8px;
     }
 }
@@ -251,8 +336,7 @@ h2 {
    ========================================================================== */
 .project-item {
     display: flex;
-    gap: 32px;
-    /* Increased horizontal gap between image and text */
+    gap: 40px;
     margin-bottom: 56px;
     padding-bottom: 40px;
     border-bottom: 1px solid rgba(91, 196, 245, 0.08);
@@ -267,9 +351,9 @@ h2 {
 /* Left side media box (for images/gifs) */
 .project-media {
     flex-shrink: 0;
-    width: 140px;
-    height: 90px;
-    border-radius: 8px;
+    width: 240px;
+    height: 160px;
+    border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--card-border);
     background: rgba(91, 196, 245, 0.02);
@@ -286,7 +370,7 @@ h2 {
 }
 
 .project-media-placeholder {
-    font-size: 20px;
+    font-size: 32px;
     color: rgba(91, 196, 245, 0.2);
 }
 
@@ -360,6 +444,6 @@ h2 {
 
     .project-media {
         width: 100%;
-        height: 140px;
+        height: 200px;
     }
 }
