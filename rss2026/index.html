@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSS 2026 Paper Explorer</title>
+<meta name="description" content="Search and filter all 210 accepted papers at Robotics: Science and Systems 2026 (Sydney, Australia).">
+<style>
+  :root{
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --card:           #ffffff;
+    --seq-100: #cde2fb; --seq-200: #9ec5f4; --seq-300: #6da7ec;
+    --seq-400: #3987e5; --seq-450: #2a78d6; --seq-500: #256abf;
+    --accent: #2a78d6;
+    --accent-ink: #ffffff;
+    --chip-bg: #f3f2ee;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --card:           #201f1e;
+      --seq-100: #184f95; --seq-200: #1c5cab; --seq-300: #256abf;
+      --seq-400: #2a78d6; --seq-450: #3987e5; --seq-500: #5598e7;
+      --accent: #3987e5;
+      --accent-ink: #0b0b0b;
+      --chip-bg: #26251f;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --page:           #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --card:           #201f1e;
+    --seq-100: #184f95; --seq-200: #1c5cab; --seq-300: #256abf;
+    --seq-400: #2a78d6; --seq-450: #3987e5; --seq-500: #5598e7;
+    --accent: #3987e5;
+    --accent-ink: #0b0b0b;
+    --chip-bg: #26251f;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--page);
+    color:var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height:1.45;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px;}
+
+  header.top{margin-bottom:22px;}
+  header.top h1{font-size:26px;margin:0 0 6px;letter-spacing:-0.01em;}
+  header.top p{color:var(--text-secondary);margin:0 0 4px;font-size:14.5px;}
+  header.top a{color:var(--accent);text-decoration:none;}
+  header.top a:hover{text-decoration:underline;}
+
+  /* stat tiles */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0;}
+  .stat-tile{
+    background:var(--surface-1);border:1px solid var(--border);border-radius:10px;
+    padding:14px 16px;
+  }
+  .stat-tile .label{font-size:12px;color:var(--text-secondary);margin-bottom:4px;}
+  .stat-tile .value{font-size:24px;font-weight:600;color:var(--text-primary);}
+
+  /* session bar chart */
+  .chart-card{
+    background:var(--surface-1);border:1px solid var(--border);border-radius:10px;
+    padding:16px 18px 10px;margin:18px 0 24px;
+  }
+  .chart-card .chart-title{font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:12px;}
+  .bar-row{display:flex;align-items:center;gap:10px;padding:3px 0;cursor:pointer;}
+  .bar-row .bar-label{
+    flex:0 0 168px;font-size:12.5px;color:var(--text-secondary);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .bar-row.active .bar-label{color:var(--text-primary);font-weight:600;}
+  .bar-track{flex:1;background:transparent;position:relative;height:16px;}
+  .bar-fill{
+    height:16px;background:var(--seq-400);border-radius:0 4px 4px 0;
+    transition:filter .1s;
+  }
+  .bar-row:hover .bar-fill{filter:brightness(1.08);}
+  .bar-row.active .bar-fill{background:var(--accent);}
+  .bar-count{flex:0 0 26px;font-size:12px;color:var(--text-muted);text-align:right;font-variant-numeric:tabular-nums;}
+
+  /* filters */
+  .filters{
+    display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    background:var(--surface-1);border:1px solid var(--border);border-radius:10px;
+    padding:12px 14px;margin-bottom:14px;position:sticky;top:10px;z-index:5;
+  }
+  .filters input[type="search"]{
+    flex:1 1 240px;min-width:180px;padding:9px 12px;border-radius:8px;
+    border:1px solid var(--border);background:var(--card);color:var(--text-primary);font-size:14px;
+  }
+  .filters select{
+    padding:9px 10px;border-radius:8px;border:1px solid var(--border);
+    background:var(--card);color:var(--text-primary);font-size:13.5px;
+  }
+  .filters .clear-btn{
+    padding:9px 12px;border-radius:8px;border:1px solid var(--border);
+    background:transparent;color:var(--text-secondary);font-size:13px;cursor:pointer;
+  }
+  .filters .clear-btn:hover{color:var(--text-primary);border-color:var(--text-muted);}
+
+  .results-meta{font-size:13px;color:var(--text-muted);margin:4px 2px 12px;}
+
+  /* paper cards */
+  .paper-list{display:flex;flex-direction:column;gap:8px;}
+  .paper-card{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;
+    padding:13px 16px;
+  }
+  .paper-head{display:flex;align-items:baseline;gap:10px;cursor:pointer;}
+  .paper-id{
+    flex:0 0 auto;font-size:11.5px;color:var(--text-muted);font-variant-numeric:tabular-nums;
+    background:var(--chip-bg);border-radius:5px;padding:1px 6px;
+  }
+  .paper-title{font-size:15px;font-weight:600;color:var(--text-primary);flex:1;}
+  .paper-title mark, .paper-authors mark{background:var(--seq-100);color:var(--text-primary);border-radius:2px;padding:0 1px;}
+  .paper-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;align-items:center;}
+  .session-chip{
+    font-size:11px;color:var(--text-secondary);background:var(--chip-bg);
+    border-radius:5px;padding:2px 7px;white-space:nowrap;
+  }
+  .paper-authors{font-size:13px;color:var(--text-secondary);}
+  .paper-links{margin-left:auto;display:flex;gap:12px;flex:0 0 auto;}
+  .paper-links a{font-size:12.5px;color:var(--accent);text-decoration:none;}
+  .paper-links a:hover{text-decoration:underline;}
+  .paper-abstract{
+    display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--gridline);
+    font-size:13.5px;color:var(--text-secondary);
+  }
+  .paper-card.expanded .paper-abstract{display:block;}
+  .expand-caret{flex:0 0 auto;color:var(--text-muted);font-size:11px;transition:transform .15s;}
+  .paper-card.expanded .expand-caret{transform:rotate(90deg);}
+
+  .empty-state{
+    text-align:center;padding:50px 20px;color:var(--text-muted);font-size:14px;
+  }
+
+  footer{margin-top:36px;font-size:12.5px;color:var(--text-muted);text-align:center;}
+  footer a{color:var(--text-secondary);}
+
+  @media (max-width:640px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .bar-row .bar-label{flex-basis:110px;}
+    .paper-links{margin-left:0;}
+    .filters{position:static;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>RSS 2026 Paper Explorer</h1>
+    <p>All 210 accepted papers &middot; Robotics: Science and Systems 2026 &middot; July 13&ndash;17, 2026, Sydney, Australia</p>
+    <p>Source: <a href="https://roboticsconference.org/program/papers/" target="_blank" rel="noopener">roboticsconference.org/program/papers</a> &middot; inspired by the <a href="https://gisbi-kim.github.io/icra2026-explorer/output/icra2026_explorer.html" target="_blank" rel="noopener">ICRA 2026 Explorer</a></p>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="chart-card">
+    <div class="chart-title">Papers per session &mdash; click a bar to filter</div>
+    <div id="sessionChart"></div>
+  </section>
+
+  <section class="filters">
+    <input type="search" id="searchInput" placeholder="Search title, authors, or abstract&hellip;">
+    <select id="sessionSelect"><option value="">All sessions</option></select>
+    <select id="sortSelect">
+      <option value="id">Sort: Program order</option>
+      <option value="title-az">Sort: Title A&rarr;Z</option>
+      <option value="title-za">Sort: Title Z&rarr;A</option>
+      <option value="authors-desc">Sort: Most authors</option>
+      <option value="authors-asc">Sort: Fewest authors</option>
+    </select>
+    <button class="clear-btn" id="clearBtn">Clear filters</button>
+  </section>
+
+  <div class="results-meta" id="resultsMeta"></div>
+  <div class="paper-list" id="paperList"></div>
+  <div class="empty-state" id="emptyState" style="display:none;">No papers match your filters.</div>
+
+  <footer>
+    Unofficial, community-built explorer &middot; data scraped from the public RSS 2026 program page &middot; not affiliated with the RSS conference organizers.
+  </footer>
+</div>
+
+<script>
+(async function(){
+  const res = await fetch('papers.json');
+  const papers = await res.json();
+
+  const state = { q: '', session: '', sort: 'id' };
+
+  // ---- stats tiles ----
+  const sessions = [...new Set(papers.map(p=>p.session))].sort();
+  const authorSet = new Set();
+  papers.forEach(p=>p.authors_list.forEach(a=>authorSet.add(a.trim().toLowerCase())));
+  const avgAuthors = (papers.reduce((s,p)=>s+p.n_authors,0)/papers.length).toFixed(1);
+
+  const statsEl = document.getElementById('stats');
+  const tiles = [
+    ['Papers', papers.length],
+    ['Sessions', sessions.length],
+    ['Unique authors', authorSet.size.toLocaleString()],
+    ['Avg. authors / paper', avgAuthors],
+  ];
+  statsEl.innerHTML = tiles.map(([label,value])=>`
+    <div class="stat-tile"><div class="label">${label}</div><div class="value">${value}</div></div>
+  `).join('');
+
+  // ---- session bar chart ----
+  const counts = {};
+  sessions.forEach(s=>counts[s]=0);
+  papers.forEach(p=>counts[p.session]++);
+  const maxCount = Math.max(...Object.values(counts));
+  const sortedSessions = [...sessions].sort((a,b)=>counts[b]-counts[a]);
+
+  const chartEl = document.getElementById('sessionChart');
+  function renderChart(){
+    chartEl.innerHTML = sortedSessions.map(s=>{
+      const pct = (counts[s]/maxCount*100).toFixed(1);
+      const active = state.session === s ? 'active' : '';
+      return `<div class="bar-row ${active}" data-session="${escapeAttr(s)}" role="button" tabindex="0" aria-label="${escapeAttr(s)}: ${counts[s]} papers">
+        <div class="bar-label" title="${escapeAttr(s)}">${escapeHtml(s)}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+        <div class="bar-count">${counts[s]}</div>
+      </div>`;
+    }).join('');
+    chartEl.querySelectorAll('.bar-row').forEach(row=>{
+      row.addEventListener('click', ()=>{
+        const s = row.getAttribute('data-session');
+        state.session = state.session === s ? '' : s;
+        sessionSelect.value = state.session;
+        render();
+      });
+    });
+  }
+
+  // ---- filter controls ----
+  const searchInput = document.getElementById('searchInput');
+  const sessionSelect = document.getElementById('sessionSelect');
+  const sortSelect = document.getElementById('sortSelect');
+  const clearBtn = document.getElementById('clearBtn');
+  const resultsMeta = document.getElementById('resultsMeta');
+  const paperList = document.getElementById('paperList');
+  const emptyState = document.getElementById('emptyState');
+
+  sessions.forEach(s=>{
+    const opt = document.createElement('option');
+    opt.value = s; opt.textContent = `${s} (${counts[s]})`;
+    sessionSelect.appendChild(opt);
+  });
+
+  searchInput.addEventListener('input', ()=>{ state.q = searchInput.value.trim().toLowerCase(); render(); });
+  sessionSelect.addEventListener('change', ()=>{ state.session = sessionSelect.value; render(); });
+  sortSelect.addEventListener('change', ()=>{ state.sort = sortSelect.value; render(); });
+  clearBtn.addEventListener('click', ()=>{
+    state.q=''; state.session=''; state.sort='id';
+    searchInput.value=''; sessionSelect.value=''; sortSelect.value='id';
+    render();
+  });
+
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  function escapeAttr(str){ return escapeHtml(str); }
+  function highlight(text, q){
+    if(!q) return escapeHtml(text);
+    const esc = escapeHtml(text);
+    const escQ = escapeHtml(q).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    return esc.replace(new RegExp(escQ, 'ig'), m=>`<mark>${m}</mark>`);
+  }
+
+  function matches(p, q){
+    if(!q) return true;
+    return p.title.toLowerCase().includes(q) ||
+           p.authors.toLowerCase().includes(q) ||
+           p.abstract.toLowerCase().includes(q) ||
+           p.session.toLowerCase().includes(q);
+  }
+
+  function render(){
+    renderChart();
+    let filtered = papers.filter(p=>matches(p, state.q) && (!state.session || p.session===state.session));
+
+    switch(state.sort){
+      case 'title-az': filtered.sort((a,b)=>a.title.localeCompare(b.title)); break;
+      case 'title-za': filtered.sort((a,b)=>b.title.localeCompare(a.title)); break;
+      case 'authors-desc': filtered.sort((a,b)=>b.n_authors-a.n_authors); break;
+      case 'authors-asc': filtered.sort((a,b)=>a.n_authors-b.n_authors); break;
+      default: filtered.sort((a,b)=>a.id-b.id);
+    }
+
+    resultsMeta.textContent = `Showing ${filtered.length} of ${papers.length} papers`;
+
+    if(filtered.length===0){
+      paperList.innerHTML=''; emptyState.style.display='block';
+      return;
+    }
+    emptyState.style.display='none';
+
+    paperList.innerHTML = filtered.map(p=>`
+      <article class="paper-card" data-id="${p.id}">
+        <div class="paper-head">
+          <span class="expand-caret">&#9654;</span>
+          <span class="paper-id">#${p.id}</span>
+          <span class="paper-title">${highlight(p.title, state.q)}</span>
+        </div>
+        <div class="paper-meta">
+          <span class="session-chip">${escapeHtml(p.session)}</span>
+          <span class="paper-authors">${highlight(p.authors, state.q)}</span>
+          <span class="paper-links">
+            <a href="${p.url}" target="_blank" rel="noopener">Paper page</a>
+            ${p.pdf ? `<a href="${p.pdf}" target="_blank" rel="noopener">PDF</a>` : ''}
+          </span>
+        </div>
+        <div class="paper-abstract">${highlight(p.abstract, state.q)}</div>
+      </article>
+    `).join('');
+
+    paperList.querySelectorAll('.paper-head').forEach(head=>{
+      head.addEventListener('click', ()=>{
+        head.closest('.paper-card').classList.toggle('expanded');
+      });
+    });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
